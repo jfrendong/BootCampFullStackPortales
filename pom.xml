@@ -14,7 +14,7 @@
 	<name>jfrgBank</name>
 	<description>API for the client administration (registration, data update and elimination of clients) for the jfrgBank. The API also allows the client products administration </description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
