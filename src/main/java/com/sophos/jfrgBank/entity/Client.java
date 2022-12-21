@@ -1,12 +1,24 @@
 package com.sophos.jfrgBank.entity;
 
-import java.sql.Date;
+
+
+import java.time.LocalDate;
+import java.util.Date;
+
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
+
+
 
 @Entity
 @Table(name="clients")
@@ -14,16 +26,28 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String idType; 
+	@NotNull
+	private String idType;
+	@NotNull
 	private int idNumber;
+	@Size(min=2, max=30)
 	private String name;
+	@Size(min=2, max=30)
 	private String lastName;
+	@NotNull @Email
 	private String email;
-	private Date birthDay;
-	private Date creationDate;
+	@Past
+	private LocalDate birthDay;
+	@PastOrPresent
+	private LocalDate creationDate;
 	private String creationUser="Admin";
-	private Date modDate;
-	private String modUser;
+	@PastOrPresent
+	private LocalDate modDate;
+	private String modUser="Admin";
+	
+	public enum IdType {
+		CC, CE, PAP
+	}
 	
 	public Client ( ) {
 	}
@@ -76,19 +100,19 @@ public class Client {
 		this.email = email;
 	}
 
-	public Date getBirthDay() {
+	public LocalDate getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(Date birthDay) {
+	public void setBirthDay(LocalDate birthDay) {
 		this.birthDay = birthDay;
 	}
 
-	public Date getCreationDate() {
+	public LocalDate getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -100,11 +124,11 @@ public class Client {
 		this.creationUser = creationUser;
 	}
 
-	public Date getModDate() {
+	public LocalDate getModDate() {
 		return modDate;
 	}
 
-	public void setModDate(Date modDate) {
+	public void setModDate(LocalDate modDate) {
 		this.modDate = modDate;
 	}
 
