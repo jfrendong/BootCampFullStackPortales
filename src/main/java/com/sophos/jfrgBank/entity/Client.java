@@ -3,14 +3,16 @@ package com.sophos.jfrgBank.entity;
 
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -25,26 +27,32 @@ import jakarta.validation.constraints.Size;
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="Client_ID")
 	private int id;
-	@NotNull
+	@Column(name="Tipo_Identificación") @NotNull
 	private String idType;
-	@NotNull
+	@Column(name="Nro_Identificación") @NotNull
 	private int idNumber;
-	@Size(min=2, max=30)
+	@Column(name="Nombres") @Size(min=2, max=30)
 	private String name;
-	@Size(min=2, max=30)
+	@Column(name="Apellidos") @Size(min=2, max=30)
 	private String lastName;
-	@NotNull @Email
+	@Column(name="Correo_Electrónico") @NotNull @Email
 	private String email;
-	@Past
+	@Column(name="Fecha_Nacimiento") @Past
 	private LocalDate birthDay;
-	@PastOrPresent
+	@Column(name="Fecha_Creación") @PastOrPresent
 	private LocalDate creationDate;
-	private String creationUser="Admin";
-	@PastOrPresent
+	@Column(name="Usuario_Creación")
+	private String creationUser;
+	@Column(name="Fecha_Modificación") @PastOrPresent
 	private LocalDate modDate;
-	private String modUser="Admin";
+	@Column(name="Usuario_Modificación")
+	private String modUser;
 	
+	@OneToMany(mappedBy="client", cascade= CascadeType.ALL)
+	private List <Accounts> accounts = new ArrayList<>();
+		
 	public enum IdType {
 		CC, CE, PAP
 	}
@@ -140,6 +148,12 @@ public class Client {
 		this.modUser = modUser;
 	}
 	
-	
+	public List<Accounts> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Accounts> accounts) {
+		this.accounts = accounts;
+	}
 	
 }

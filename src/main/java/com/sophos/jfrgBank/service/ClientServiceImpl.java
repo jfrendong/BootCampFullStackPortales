@@ -59,14 +59,14 @@ public class ClientServiceImpl implements ClientService {
         }).orElse(false);
     }
 	
-@Override
-public boolean calculateAge(LocalDate birthDay, LocalDate currentDate) {
-	int Age = Period.between(birthDay, currentDate).getYears();
-	if (Age < 18) {
-		return true;
-	} else {
-		return false;
+	@Override
+	public boolean calculateAge(LocalDate birthDay, LocalDate currentDate) {
+		int Age = Period.between(birthDay, currentDate).getYears();
+		if (Age < 18) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-}
 
 }
