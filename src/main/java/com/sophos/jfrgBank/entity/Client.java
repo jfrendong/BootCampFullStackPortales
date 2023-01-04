@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +29,7 @@ import jakarta.validation.constraints.Size;
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="Client_ID")
+	@Column(name="ID_Cliente")
 	private int id;
 	@Column(name="Tipo_Identificación") @NotNull
 	private String idType;
@@ -51,7 +53,8 @@ public class Client {
 	private String modUser;
 	
 	@OneToMany(mappedBy="client", cascade= CascadeType.ALL)
-	private List <Accounts> accounts = new ArrayList<>();
+	@JsonIgnore
+	private List <Accounts> accounts;
 		
 	public enum IdType {
 		CC, CE, PAP

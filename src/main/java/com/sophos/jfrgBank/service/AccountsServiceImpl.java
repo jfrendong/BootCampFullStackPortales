@@ -31,9 +31,12 @@ public class AccountsServiceImpl implements AccountsService {
 		for (Accounts currentAccount:getAllAccountsByClient(clientId)) {
 			if (currentAccount.getIdA()==account.getIdA()) {
 				resourceFound = true;
-				currentAccount.setStatus(account.getStatus());					
-				}
+				if (account.getStatus().equals("Cancelada")&&(currentAccount.getAccB()<=1)
+						&&(currentAccount.getAccAvailableB()==3000000)) {
+					currentAccount.setStatus(account.getStatus());
+				} else {currentAccount.setStatus(account.getStatus());}
 			}
+		}
 		if (!resourceFound) getAllAccountsByClient(clientId).add(account); 
 		return accountsRepository.save(account);
 	}
@@ -61,17 +64,17 @@ public class AccountsServiceImpl implements AccountsService {
 	}
 
 	@Override
-	public int accBalance(String accType, int accB) {
-		int balance = 0;
+	public double accBalance(String accType, boolean gmf, double accB) {
+		double balance = 0;
 		
-		if (accType.equals("Ahorros")) {
-			balance = accB;
-		} else if (accType.equals("Corriente")) {
-			balance = accB + 3000000;
+		if (gmf) {
+			if (accType.equals("Ahorros")) {balance = accB;} 
+			if (accType.equals("Corriente")) {balance = accB + 3000000;}			
 		} else {
-			balance = 0;
+			if (accType.equals("Ahorros")) {balance = accB*0.996;} 
+			if (accType.equals("Corriente")) {balance = (accB + 3000000)*0.996;}
 		}
-		
+ 		
 		return balance;
 	}
 
@@ -90,4 +93,73 @@ public class AccountsServiceImpl implements AccountsService {
 		return sta;
 	}
 
+	@Override
+	public void updateAccBalance(int clientId, int accId, double balance, double avBalance) {
+		for (Accounts currentAccount:getAllAccountsByClient(clientId)) {
+			if (currentAccount.getIdA()==accId) {
+				currentAccount.setAccBalance(balance);
+				currentAccount.setAccAvailableB(avBalance);
+				}
+			}
+	}
+
+	@Override
+	public void updateDesAccBalance(int clientId, int accId, String transactionType, String accDes, int value) {
+		for (Accounts currentAccount:getAllAccountsByClient(clientId)) {
+			if (accountsRepository.existsByaccNumber(accDes)) {
+				if (transactionType.equals("Transferencia") && currentAccount.getAccNumber().equals(accDes)) {
+					if (currentAccount.getGmf()) {
+						currentAccount.setAccBalance((currentAccount.getAccB())+value);
+						currentAccount.setAccAvailableB((currentAccount.getAccAvailableB())+value);
+					}else {
+						currentAccount.setAccBalance((currentAccount.getAccB())+(value*0.996));
+						currentAccount.setAccAvailableB((currentAccount.getAccAvailableB())+(value*0.996));
+					}
+				}
+			}	
+		}
+	}
+
+	@Override
+	public String Status(int clientId, int accId) {
+		String accountStatus="";
+		for (Accounts currentAccount:getAllAccountsByClient(clientId)) {
+			if (currentAccount.getIdA()==accId) {
+				accountStatus=currentAccount.getStatus();
+				}
+			}
+		return accountStatus;
+	}
+
+	@Override
+	public boolean balaanceCheck(int clientId, int accId, String transactionType, int value) {
+		boolean resourceCheck = false;
+		for (Accounts currentAccount:getAllAccountsByClient(clientId)) {
+			if (currentAccount.getIdA()==accId) {
+				if ((transactionType.equals("Retiro") || transactionType.equals("Transferencia"))
+						&& currentAccount.getAccAvailableB()>=value) {
+					resourceCheck = true;
+				} else {resourceCheck = true;}
+			}
+		}
+		return resourceCheck;
+	}
+
+	@Override
+	public boolean gmfCheck(int clientId) {
+		boolean resourceCheck = false;
+		for (Accounts currentAccount:getAllAccountsByClient(clientId)) {
+			if (currentAccount.getGmf()) {
+				resourceCheck=true;
+				}
+			}		
+		return resourceCheck;
+	}
+	
+	
+	
 }
+
+	
+
+

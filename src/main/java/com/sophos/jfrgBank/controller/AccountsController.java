@@ -19,6 +19,7 @@ import com.sophos.jfrgBank.repository.AccountsRepository;
 import com.sophos.jfrgBank.repository.ClientRepository;
 import com.sophos.jfrgBank.service.AccountsService;
 import com.sophos.jfrgBank.service.ClientService;
+//import com.sophos.jfrgBank.service.ClientService;
 
 
 @RestController
@@ -53,7 +54,10 @@ public class AccountsController {
 		
 		if (clientRepository.existsById(clientId) && account.getAccB()>=0) {
 			account.setAccNumber(accountsService.accNum(account.getAccType()));
-			account.setAccAvailableB(accountsService.accBalance(account.getAccType(), account.getAccB()));
+			if(accountsService.gmfCheck(clientId)) {
+				account.setGmf(false);
+			}
+			account.setAccAvailableB(accountsService.accBalance(account.getAccType(), account.getGmf() ,account.getAccB()));
 			account.setStatus(accountsService.accStatus(account.getAccType()));
 			account.setCreationDate(LocalDate.now());
 			account.setCreationUser("Admin");

@@ -44,7 +44,8 @@ public class ClientController {
 //		
 	@PostMapping
 	public ResponseEntity<Client> createClient (@RequestBody Client client) {
-		if ((clientRepository.existsByIdNumber(client.getIdNumber()))||clientService.calculateAge(client.getBirthDay(), LocalDate.now())) {
+		if ((clientRepository.existsByIdNumber(client.getIdNumber()))
+				||clientService.calculateAge(client.getBirthDay(), LocalDate.now())) {
 			return new ResponseEntity <> (HttpStatus.BAD_REQUEST);
 		} else {client.setCreationDate(LocalDate.now());
 				client.setCreationUser("Admin");
@@ -55,19 +56,26 @@ public class ClientController {
 //		
 	@PutMapping("/{id}")
 	public ResponseEntity<Client> updateClient (@RequestBody Client client) {
-		client.setModDate(LocalDate.now());
-		client.setModUser("Admin");
-		return new ResponseEntity<>(clientService.updateClient(client), HttpStatus.OK);
+		if (clientService.calculateAge(client.getBirthDay(), LocalDate.now())) {
+			return new ResponseEntity <> (HttpStatus.BAD_REQUEST);
+		} else {client.setModDate(LocalDate.now());
+				client.setModUser("Admin");
+			return new ResponseEntity<>(clientService.updateClient(client), HttpStatus.OK);
+		}
 	}
 //	
 		@DeleteMapping("/{id}")
 	    public ResponseEntity deleteClientById(@PathVariable("id") int id){
-	        if (clientService.deleteClientById(id)){
-	            return new ResponseEntity<>(HttpStatus.OK);
-	        }else {
-	            return new ResponseEntity(HttpStatus.NOT_FOUND);
+	        if (clientService.checkAccounts(id) || clientService.checkAccountStatus(id)) {
+	        	if (clientService.deleteClientById(id)){
+		            return new ResponseEntity<>(HttpStatus.OK);
+		        }else {
+		            return new ResponseEntity(HttpStatus.NOT_FOUND);
+		        }	
+	        } else {
+	        	return new ResponseEntity(HttpStatus.FORBIDDEN);
 	        }
+			
 	    }
-	
 	
 }

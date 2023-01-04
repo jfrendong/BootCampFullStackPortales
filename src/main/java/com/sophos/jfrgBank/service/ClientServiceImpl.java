@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sophos.jfrgBank.entity.Accounts;
 import com.sophos.jfrgBank.entity.Client;
 import com.sophos.jfrgBank.repository.ClientRepository;
 
@@ -17,6 +18,9 @@ public class ClientServiceImpl implements ClientService {
 	
 	@Autowired
 	ClientRepository clientRepository;
+	
+	@Autowired
+	AccountsService accountsService;
 	
 	@Override
 	public Client createClient(Client client) {
@@ -68,5 +72,26 @@ public class ClientServiceImpl implements ClientService {
 			return false;
 		}
 	}
+	@Override
+	public boolean checkAccountStatus(int clientId) {
+		boolean resourceFound = false;
+		for (Accounts currentAccount:accountsService.getAllAccountsByClient(clientId)) {
+			if (currentAccount.getStatus().equals("Cancelada")) {
+				resourceFound = true;
+				}else {resourceFound = false;}
+		}
+		return resourceFound;
+	}
+	@Override
+	public boolean checkAccounts(int clientId) {
+		boolean resourceFound = false;
+		if (accountsService.getAllAccountsByClient(clientId).isEmpty()) {
+			resourceFound = true;
+		}
+		return resourceFound;
+	}
+	
+	
 
+	
 }

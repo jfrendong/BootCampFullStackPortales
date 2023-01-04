@@ -13,6 +13,10 @@ public interface ClientService {
 	public List <Client> getAllClients ();
 	public Optional<Client> getClientById(int id);
 	public Client updateClient (Client client);
+	public boolean checkAccounts (int clientId);
+	public boolean checkAccountStatus (int clientId);
 	public boolean deleteClientById (int id);
+
+	
 
 }

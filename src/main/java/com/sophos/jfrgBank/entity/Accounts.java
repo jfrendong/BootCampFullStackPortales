@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,23 +25,24 @@ import jakarta.validation.constraints.PastOrPresent;
 public class Accounts {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID_Producto")
 	private int idA;
 	@Column(name="Tipo_Cuenta") @NotNull
 	private String accType; 
-	@Column(name="Nro_Cuenta") @NotNull
+	@Column(name="Nro_Cuenta")
 	private String accNumber;
-	@Column(name="Estado") @NotNull
+	@Column(name="Estado")
 	private String status;
 	@Column(name="Saldo") @NotNull
-	private int accB;
-	@Column(name="Saldo_Disponible") @NotNull
-	private int accAvailableB;
+	private double accB;
+	@Column(name="Saldo_Disponible")
+	private double accAvailableB;
 	@Column(name="GMF") @NotNull
 	private Boolean gmf;
-	@Column(name="Fecha_Creación") @NotNull
+	@Column(name="Fecha_Creación")
 	@PastOrPresent
 	private LocalDate creationDate;
-	@Column(name="Usuario_Creación") @NotNull
+	@Column(name="Usuario_Creación")
 	private String creationUser;
 	@Column(name="Fecha_Modificación")
 	@PastOrPresent
@@ -47,11 +51,11 @@ public class Accounts {
 	private String modUser;
 	
 	@ManyToOne
-	@JoinColumn(name="ID_Cliente", referencedColumnName="Client_ID")
 	private Client client;
 	
 	@OneToMany(mappedBy="account", cascade= CascadeType.ALL)
-	private List <Transactions> transactions = new ArrayList<>();
+	@JsonIgnore
+	private List <Transactions> transactions;
 	
 	public enum AccType {
 		Ahorros, Corriente
@@ -96,19 +100,19 @@ public class Accounts {
 		this.status = status;
 	}
 
-	public int getAccB() {
+	public double getAccB() {
 		return accB;
 	}
 
-	public void setAccBalance(int accB) {
+	public void setAccBalance(double accB) {
 		this.accB = accB;
 	}
 
-	public int getAccAvailableB() {
+	public double getAccAvailableB() {
 		return accAvailableB;
 	}
 
-	public void setAccAvailableB(int accAvailableB) {
+	public void setAccAvailableB(double accAvailableB) {
 		this.accAvailableB = accAvailableB;
 	}
 
