@@ -1,9 +1,10 @@
 package com.sophos.jfrgBank.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import com.sophos.jfrgBank.entity.Accounts;
+
 
 
 public interface AccountsService {
@@ -19,5 +20,6 @@ public interface AccountsService {
 	public String Status (int clientId, int accId);
 	public boolean balaanceCheck (int clientId, int accId, String transactionType, int value);
 	public boolean gmfCheck (int clientId);
+	public Optional<Accounts> getAccountByIdA(int idA);
 	
 }

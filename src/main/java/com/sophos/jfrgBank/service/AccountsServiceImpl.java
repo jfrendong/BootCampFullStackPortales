@@ -1,6 +1,7 @@
 package com.sophos.jfrgBank.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,6 +155,11 @@ public class AccountsServiceImpl implements AccountsService {
 				}
 			}		
 		return resourceCheck;
+	}
+
+	@Override
+	public Optional<Accounts> getAccountByIdA(int idA) {
+		return accountsRepository.findByIdA(idA);
 	}
 	
 	

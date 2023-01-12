@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.sophos.jfrgBank.repository.TransactionsRepository;
 import com.sophos.jfrgBank.service.AccountsService;
 import com.sophos.jfrgBank.service.TransactionsService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/clients/{id}/accounts/{idA}/transactions")
 public class TransactionsController {
@@ -71,6 +73,8 @@ public class TransactionsController {
 			
 			accountsService.updateDesAccBalance(clientId, accountId, transaction.getTransactionType(),
 					transaction.getAccDes(), transaction.getValue());
+			
+			transaction.setAccount(accountsRepository.findAccountByIdA(accountId));
 			
 			return new ResponseEntity<>(transactionsService.createTransaction(transaction), HttpStatus.CREATED);
 		} else {

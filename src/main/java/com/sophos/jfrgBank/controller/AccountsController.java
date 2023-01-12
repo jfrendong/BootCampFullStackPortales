@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ import com.sophos.jfrgBank.service.AccountsService;
 import com.sophos.jfrgBank.service.ClientService;
 //import com.sophos.jfrgBank.service.ClientService;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/clients/{id}/accounts")
 
@@ -48,6 +49,13 @@ public class AccountsController {
 		    return new ResponseEntity<>(accountsRepository.findByClientId(clientId), HttpStatus.OK);
 	}
 	
+	@GetMapping("/{idA}")
+	public ResponseEntity<Accounts> getAccountByIdA (@PathVariable(value = "idA") int accId) {
+		return accountsService.getAccountByIdA(accId)
+                .map(accounts -> new ResponseEntity<>(accounts, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+	
 	@PostMapping
 	public ResponseEntity<Accounts> createAccount (@PathVariable(value = "id") int clientId,
 			@RequestBody Accounts account) {
@@ -61,7 +69,7 @@ public class AccountsController {
 			account.setStatus(accountsService.accStatus(account.getAccType()));
 			account.setCreationDate(LocalDate.now());
 			account.setCreationUser("Admin");
-			account.setClient(account.getClient());
+			account.setClient(clientRepository.findClientById(clientId));
 						
 			return new ResponseEntity<>(accountsService.createAccount(account), HttpStatus.CREATED);
 		} else {

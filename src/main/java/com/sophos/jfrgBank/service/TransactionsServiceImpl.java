@@ -64,6 +64,8 @@ public class TransactionsServiceImpl implements TransactionsService {
 						}else {
 							balance = currentAccount.getAccB()-(value*1.004);
 						}
+					} else {
+						balance = currentAccount.getAccB();
 					}
 				}
 			}
@@ -93,6 +95,8 @@ public class TransactionsServiceImpl implements TransactionsService {
 					}else {
 						balance = currentAccount.getAccAvailableB()-(value*1.004);
 					}
+				} else {
+					balance = currentAccount.getAccAvailableB();
 				}
 			}
 		}

@@ -1,6 +1,7 @@
 package com.sophos.jfrgBank.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +13,7 @@ public interface AccountsRepository extends JpaRepository <Accounts,Integer> {
 	List<Accounts> findByClientId(int clientId);
 	boolean existsByIdA (int accountId);
 	boolean existsByaccNumber (String accNumber);
+	public Optional<Accounts> findByIdA (int idA);
+	Accounts findAccountByIdA (int idA);
+	
 }
