@@ -1,0 +1,33 @@
+
+ <header>
+    <h3>Bootcamp Fullstack Portales</h3>
+  </header>  
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a routerLink="home" routerLinkActive="active" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="clients" routerLinkActive="active" class="nav-link">Clientes</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="create-client" routerLinkActive="active" class="nav-link">Agregar un Cliente</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="jfrg-profile" routerLinkActive="active" class="nav-link">Juan Rendón-Profile</a>
+        </li>       
+    </ul>
+
+</nav>
+
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+
+<!-- <footer class="footer">
+    <div class="container">
+        <span>All Rights Reserved 2022 @Juan Felipe Rendón Genez</span>
+    </div>
+</footer> -->

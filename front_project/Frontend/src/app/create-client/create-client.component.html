@@ -1,0 +1,48 @@
+<div class="col-md-6 offset-md-3">
+<h3>Agregar Cliente</h3>
+
+<form (ngSubmit)="onSubmit()">
+    
+    <div class="form-group">
+        <label style="margin-right: 10px">Tipo ID</label>
+        <select id="idType" [(ngModel)] = "client.idType" name="idType" style="display:block" style="margin-top: 10px">
+            <option value="CC">CC</option>
+            <option value="CE">CE</option>
+            <option value="PAP">PAP</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label style="margin-top: 10px">Número de identificación</label>
+        <input type="text" class="form-control" id="idNumber" placeholder="Ingrese el número de identificación"
+            [(ngModel)] = "client.idNumber" name="idNumber">
+    </div>
+
+    <div class="form-group">
+        <label style="margin-top: 10px">Nombres</label>
+        <input type="text" class="form-control" id="name" placeholder="Nombres"
+            [(ngModel)] = "client.name" name="name">
+    </div>
+
+    <div class="form-group">
+        <label style="margin-top: 10px">Apellidos</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Apellidos"
+            [(ngModel)] = "client.lastName" name="lastName">
+    </div>
+
+    <div class="form-group">
+        <label style="margin-top: 10px">Correo electrónico</label>
+        <input type="text" class="form-control" id="email" placeholder="Ingrese email tipo xxx@xxx.xx"
+            [(ngModel)] = "client.email" name="email">
+    </div>
+
+    <div class="form-group">
+        <label style="margin-top: 10px">Fecha de nacimiento</label>
+        <input type="text" class="form-control" id="birthDay"
+            [(ngModel)] = "client.birthDay" name="birthDay">
+    </div>
+
+    <button class = "btn btn-success" type="submit" style="margin-top: 10px">Crear</button>
+
+</form>
+</div>

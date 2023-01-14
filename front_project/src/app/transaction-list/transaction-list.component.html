@@ -1,0 +1,31 @@
+<h2>Estado de cuenta</h2>
+
+<div class="container">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tipo de Transacción</th>
+            <th>Fecha de Transacción</th>
+            <th>Descripción</th>
+            <th>Valor [$]</th>
+            <th>Cuenta Destino</th>
+            <th>Tipo de Movimiento</th>
+            <th>Saldo [$]</th>
+            <th>Saldo Disponible [$]</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let transaction of transactions">
+            <td>{{transaction.transactionType}}</td>
+            <td>{{transaction.transactionDate}}</td>
+            <td>{{transaction.description}}</td>
+            <td>{{transaction.value}}</td>
+            <td>{{transaction.accDes}}</td>
+            <td>{{transaction.movementType}}</td>
+            <td>{{transaction.accB}}</td>
+            <td>{{transaction.accAvB}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>

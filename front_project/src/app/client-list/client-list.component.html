@@ -1,0 +1,39 @@
+<h2>Clientes</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tipo ID</th>
+            <th>Número de identificación</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo electrónico</th>
+            <th>Fecha de nacimiento</th>
+            <th>Fecha de creación</th>
+            <th>Usuario que creó</th>
+            <th>Fecha de modificación</th>
+            <th>Usuario que modificó</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let client of clients">
+            <td>{{client.idType}}</td>
+            <td>{{client.idNumber}}</td>
+            <td>{{client.name}}</td>
+            <td>{{client.lastName}}</td>
+            <td>{{client.email}}</td>
+            <td>{{client.birthDay}}</td>
+            <td>{{client.creationDate}}</td>
+            <td>{{client.creationUser}}</td>
+            <td>{{client.modDate}}</td>
+            <td>{{client.modUser}}</td>
+            <td>
+                <button (click) = "updateClient(client.id)" class="btn btn-info">Actualizar</button>
+                <button (click) = "clientAccounts(client.id)" class="btn btn-info">Productos</button>
+                <button (click) = "createAccount(client.id)" class="btn btn-info" >Crear Producto</button>
+                <button (click) = "deleteClient(client.id)" class="btn btn-danger">Eliminar</button>
+            </td>              
+        </tr>
+    </tbody>
+</table>

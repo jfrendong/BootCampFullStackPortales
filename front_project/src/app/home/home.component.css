@@ -1,0 +1,26 @@
+#leftbox {
+    float:left;
+    width:50%;
+    height:280px;
+}
+#rightbox{
+    float:left;
+    width:50%;
+    height: 280px;;
+    display: flex;
+    justify-content:left;
+    align-items: center;
+}
+
+h3 {
+    color: #000000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-display: bold;
+    font-style: italic;
+    font-size: 250%;
+    line-height: 155%;
+    font-weight: 500;
+    padding: 0%;
+    
+  }
+

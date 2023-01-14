@@ -1,0 +1,35 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Crear Producto</h3>
+    
+    <form (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+            <label style="margin-right: 10px">Tipo de Cuenta</label>
+            <select id="accType" [(ngModel)] = "account.accType" name="accType" style="display:block" style="margin-top: 10px">
+                <option value="Ahorros">Ahorros</option>
+                <option value="Corriente">Corriente</option>
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label style="margin-top: 10px">Saldo</label>
+            <input type="text" class="form-control" id="accB" placeholder="Ingrese el monto de apertura"
+                [(ngModel)] = "account.accB" name="accB" style="margin-top: 10px">
+        </div>
+    
+        <div class="form-group" style="margin-top: 10px">
+            <label>¿Extenta GMF?</label>
+            <label style="margin-left: 10px">
+            <input type="radio" class="form-control" id="gmf"
+                [(ngModel)] = "account.gmf" name="gmf" [value]="true" >Sí
+            </label>
+            <label style="margin-left: 10px">
+            <input type="radio" class="form-control" id="gmf"
+                [(ngModel)] = "account.gmf" name="gmf" [value]="false">No
+            </label>     
+        </div>
+                  
+        <button class = "btn btn-success" type="submit" style="margin-top: 10px">Crear</button>
+    
+    </form>
+    </div>

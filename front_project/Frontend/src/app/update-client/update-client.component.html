@@ -1,0 +1,45 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Actualizar un Cliente</h3>
+    
+    <form (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+            <label>Tipo de Identificación</label>
+            <input type="text" class="form-control" id="idType"
+                [(ngModel)] = "client.idType" name="idType">
+        </div>
+    
+        <div class="form-group">
+            <label>Documento de Identidad</label>
+            <input type="text" class="form-control" id="idNumber"
+                [(ngModel)] = "client.idNumber" name="idNumber">
+        </div>
+    
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" id="name"
+                [(ngModel)] = "client.name" name="name">
+        </div>
+    
+        <div class="form-group">
+            <label>Apellidos</label>
+            <input type="text" class="form-control" id="lastName"
+                [(ngModel)] = "client.lastName" name="lastName">
+        </div>
+    
+        <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="text" class="form-control" id="email"
+                [(ngModel)] = "client.email" name="email">
+        </div>
+    
+        <div class="form-group">
+            <label>Fecha de Nacimiento</label>
+            <input type="text" class="form-control" id="birthDay"
+                [(ngModel)] = "client.birthDay" name="birthDay">
+        </div>
+    
+        <button class = "btn btn-success" type="submit">Actualizar</button>
+    
+    </form>
+    </div>

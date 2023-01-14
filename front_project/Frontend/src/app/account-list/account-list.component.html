@@ -1,0 +1,42 @@
+<h2>Productos</h2>
+
+<div class="container">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tipo de Cuenta</th>
+            <th>Nro. de Cuenta</th>
+            <th>Estado</th>
+            <th>Saldo [$]</th>
+            <th>Saldo Disponible [$]</th>
+            <th>¿Exenta GMF?</th>
+            <th>Fecha de Creación</th>
+            <th>Usuario que Creó</th>
+            <th>Fecha de Modificación</th>
+            <th>Usuario que Modificó</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor = "let account of accounts">
+            <td>{{account.accType}}</td>
+            <td>{{account.accNumber}}</td>
+            <td>{{account.status}}</td>
+            <td>{{account.accB}}</td>
+            <td>{{account.accAvailableB}}</td>
+            <td>{{account.gmf}}</td>
+            <td>{{account.creationDate}}</td>
+            <td>{{account.creationUser}}</td>
+            <td>{{account.modDate}}</td>
+            <td>{{account.modUser}}</td>
+            <td>
+                <button (click) = "createTransaction(account.idA)" class="btn btn-info">Crear Transacción</button>
+                <button (click) = "accountState(account.idA)" class="btn btn-info">Estado de Cuenta</button>
+                <button (click) = "updateAccount(account.idA)" class="btn btn-warning">Cambiar Estado</button>
+            </td>              
+        </tr>
+    </tbody>
+</table>
+</div>
+
